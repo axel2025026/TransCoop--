@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransCoope - Transcripción Musical con IA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Pantalla de creación de usuario -->
+    <div id="user-creation-screen" class="screen">
+        <div class="login-container">
+            <div class="logo">
+                <h1>TransCoope</h1>
+                <p>Transcripción musical con inteligencia artificial</p>
+            </div>
+            <div class="user-creation-form">
+                <h2>Crear Usuario</h2>
+                <input type="text" id="user-name-input" placeholder="Nombre de usuario" maxlength="20">
+                <button id="create-user-btn" class="btn-primary">Comenzar</button>
+                <p class="note">No necesitas contraseña. Tu progreso se guardará en este dispositivo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de selección de géneros -->
+    <div id="genre-selection-screen" class="screen hidden">
+        <div class="genre-container">
+            <h2>Selecciona tus géneros musicales favoritos</h2>
+            <p>Esto nos ayudará a personalizar tu experiencia</p>
+            <div class="genre-grid">
+                <div class="genre-option" data-genre="rock">Rock</div>
+                <div class="genre-option" data-genre="pop">Pop</div>
+                <div class="genre-option" data-genre="electronica">Electrónica</div>
+                <div class="genre-option" data-genre="clasica">Clásica</div>
+                <div class="genre-option" data-genre="metal">Metal</div>
+                <div class="genre-option" data-genre="salsa">Salsa</div>
+                <div class="genre-option" data-genre="jazz">Jazz</div>
+                <div class="genre-option" data-genre="hiphop">Hip Hop</div>
+                <div class="genre-option" data-genre="reggaeton">Reggaeton</div>
+                <div class="genre-option" data-genre="folk">Folk</div>
+                <div class="genre-option" data-genre="blues">Blues</div>
+                <div class="genre-option" data-genre="country">Country</div>
+            </div>
+            <button id="save-genres" class="btn-primary">Continuar</button>
+        </div>
+    </div>
+
+    <!-- Pantalla principal de la aplicación -->
+    <div id="main-app-screen" class="screen hidden">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <h1>TransCoope</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-section="transcription">Transcribir</a></li>
+                        <li><a href="#" class="nav-link" data-section="community">Comunidad</a></li>
+                        <li><a href="#" class="nav-link" data-section="projects">Proyectos</a></li>
+                        <li><a href="#" class="nav-link" data-section="trending">Tendencias</a></li>
+                        <li><a href="#" class="nav-link" data-section="recommendations">Recomendaciones</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info">
+                    <div class="user-avatar-placeholder"></div>
+                    <span id="user-name"></span>
+                    <button id="logout-btn" class="btn-secondary">Cambiar usuario</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Sección de Transcripción -->
+            <section id="transcription-section" class="section active">
+                <div class="container">
+                    <h2>Transcribir Música</h2>
+                    <div class="upload-options">
+                        <div class="upload-option">
+                            <h3>Enlace de música</h3>
+                            <p>Pega un enlace de YouTube, Spotify, etc.</p>
+                            <input type="text" id="music-link" placeholder="https://...">
+                            <button id="process-link" class="btn-primary">Procesar</button>
+                        </div>
+                        <div class="upload-option">
+                            <h3>Subir archivo de audio</h3>
+                            <p>Sube un archivo desde tu dispositivo</p>
+                            <input type="file" id="audio-file" accept="audio/*">
+                            <button id="process-file" class="btn-primary">Procesar</button>
+                        </div>
+                    </div>
+                    
+                    <div id="processing-status" class="hidden">
+                        <div class="loading-spinner"></div>
+                        <p>Analizando audio con IA...</p>
+                    </div>
+                    
+                    <div id="sheet-music-container" class="hidden">
+                        <h3>Partituras generadas</h3>
+                        <div id="instrument-tabs" class="tabs"></div>
+                        <div id="sheet-music-display"></div>
+                        <button id="download-pdf" class="btn-primary">Descargar PDF</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Comunidad -->
+            <section id="community-section" class="section">
+                <div class="container">
+                    <h2>Comunidad</h2>
+                    <div class="forum-container">
+                        <div class="new-post">
+                            <textarea id="post-content" placeholder="Escribe tu mensaje..."></textarea>
+                            <button id="submit-post" class="btn-primary">Publicar</button>
+                        </div>
+                        <div id="posts-container" class="posts-container">
+                            <!-- Los posts se cargarán aquí dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Proyectos -->
+            <section id="projects-section" class="section">
+                <div class="container">
+                    <h2>Proyectos Musicales</h2>
+                    <div class="project-upload">
+                        <h3>Sube tu proyecto</h3>
+                        <input type="text" id="project-title" placeholder="Título del proyecto">
+                        <textarea id="project-description" placeholder="Descripción"></textarea>
+                        <input type="file" id="project-audio" accept="audio/*">
+                        <button id="submit-project" class="btn-primary">Subir proyecto</button>
+                    </div>
+                    <div id="projects-container" class="projects-grid">
+                        <!-- Los proyectos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Tendencias -->
+            <section id="trending-section" class="section">
+                <div class="container">
+                    <h2>Músicas más buscadas</h2>
+                    <div id="trending-list" class="trending-list">
+                        <!-- Las tendencias se cargarán aquí dinámicamente -->
+                    </div>
+                    
+                    <h2>Valoraciones</h2>
+                    <div id="ratings-list" class="ratings-list">
+                        <!-- Las valoraciones se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Recomendaciones -->
+            <section id="recommendations-section" class="section">
+                <div class="container">
+                    <h2>Recomendaciones para ti</h2>
+                    <div id="recommendations-container" class="recommendations-grid">
+                        <!-- Las recomendaciones se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
